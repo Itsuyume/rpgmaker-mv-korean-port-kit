@@ -1,0 +1,2 @@
+# Retain this pinned upstream module byte for byte, including its final blank line.
+runtime/shared/asset_crypto.py whitespace=-blank-at-eof

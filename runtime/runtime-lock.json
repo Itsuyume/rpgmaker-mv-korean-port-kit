@@ -1,0 +1,14 @@
+{
+  "release": "0.117.0",
+  "runtime_filename": "nwjs-v0.117.0-osx-arm64.zip",
+  "runtime_sha256": "5632dee65120283cace880bfdc76efdad2e6004b53ad2625b971de0c1a622693",
+  "runtime_url": "https://dl.nwjs.io/v0.117.0/nwjs-v0.117.0-osx-arm64.zip",
+  "checksums_url": "https://dl.nwjs.io/v0.117.0/SHASUMS256.txt",
+  "package_name": "peasants-quest-nyd412-ko-native-v1",
+  "bundle_id": "local.peasantsquest.nyd412.ko.native",
+  "display_name": "Peasant’s Quest NYD412",
+  "game_version": "NYD412",
+  "font_filename": "NotoSansCJKkr-Regular.otf",
+  "font_sha256": "6bcb2a0703aa137e874fc2dffa85f6c21ba9a67fa329e81b8c801663af7e992a",
+  "font_license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+}

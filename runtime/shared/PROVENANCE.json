@@ -1,0 +1,14 @@
+{
+  "upstream_authored_module": "mac_release",
+  "source_files_sha256": {
+    "native.py": "58d9128f0fc68b17f4458b26d6e3ec32e7e12eacb7fdb06d21df573d4b6067ce",
+    "hygiene.py": "7d86e3e39df46fbb01f6c2c0751b88b38f9168479def319daef55dc3adab9684",
+    "archive.py": "0fecac5adca30400b92eda5c651f2dbbfe067684cf110a1c8e28a189bed74e19"
+  },
+  "modifications": [],
+  "asset_crypto": {
+    "upstream_authored_module": "noel_localizer.asset_crypto",
+    "sha256": "9c9e859359c2fcc1bea223ca569549b31c47325236a922003b8468204335ea14",
+    "modifications": []
+  }
+}

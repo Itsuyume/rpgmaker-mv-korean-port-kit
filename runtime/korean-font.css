@@ -1,0 +1,11 @@
+@font-face {
+    font-family: PQNativeKorean;
+    src: url("fonts/NotoSansCJKkr-Regular.otf") format("opentype");
+    font-style: normal;
+    font-weight: normal;
+    font-display: block;
+}
+
+body, input, button, select, textarea {
+    font-family: GameFont, PQNativeKorean, sans-serif;
+}

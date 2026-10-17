@@ -1,0 +1,32 @@
+name: Verify authored tools
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -B checks/architecture.py
+      - run: python -m mypy --strict --follow-imports=silent --python-version 3.11 pq_catalog
+      - run: python -B -m unittest discover -s tests/architecture -v
+        env:
+          PYTHONPATH: .
+      - run: python -B -m unittest discover -s tests/catalog -v
+        env:
+          PYTHONPATH: .
+      - run: python -B -m unittest discover -s runtime/tests -p 'test_*.py' -v
+      - run: node --test runtime/tests/storage.test.js runtime/tests/font.test.js
