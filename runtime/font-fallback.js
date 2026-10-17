@@ -84,11 +84,48 @@
         });
     }
 
-    /** @param {Window} window @param {{prototype: {_makeFontNameText: function(): string}}} bitmap */
+    /**
+     * @typedef {{initialize: function({name: function(): string}, number): void,
+     * charWidth: function(): number}} NameEditPrototype
+     * @param {NameEditPrototype} prototype
+     * @param {function(): number} boxWidth
+     * MV name editing is an external engine boundary; keep its Latin-only sizing.
+     */
+    function installNameEdit(prototype, boxWidth) {
+        var initialize = prototype.initialize;
+        var charWidth = prototype.charWidth;
+        if (typeof initialize !== "function" || typeof charWidth !== "function") {
+            throw new Error("Expected the MV name-edit sizing methods");
+        }
+        prototype.charWidth = function () {
+            var original = charWidth.call(this);
+            return /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]/.test(this._name) ?
+                Math.max(original, this.textWidth("한")) : original;
+        };
+        prototype.initialize = function (actor, maxLength) {
+            initialize.call(this, actor, maxLength);
+            var needed = Math.ceil(this.faceWidth() + (maxLength + 1) *
+                this.charWidth() + this.padding * 2);
+            var width = Math.min(boxWidth(), Math.max(this.width, needed));
+            if (width === this.width) { return; }
+            this.move((boxWidth() - width) / 2, this.y, width, this.height);
+            this.createContents();
+            this.refresh();
+        };
+    }
+
+    /**
+     * @param {{document: Document, Window_NameEdit: {prototype: NameEditPrototype},
+     * Graphics: {boxWidth: number}}} window
+     * @param {{prototype: {_makeFontNameText: function(): string}}} bitmap
+     */
     function install(window, bitmap) {
         installBitmapFont(bitmap.prototype, window.document);
+        installNameEdit(window.Window_NameEdit.prototype, function () {
+            return window.Graphics.boxWidth;
+        });
     }
 
     return {withKoreanFamily: withKoreanFamily, installBitmapFont: installBitmapFont,
-            load: load, install: install};
+            installNameEdit: installNameEdit, load: load, install: install};
 }));
